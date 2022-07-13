@@ -17,6 +17,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  LoginToken LoginToken[]
   Fun       Fun[]
 }
 
@@ -30,4 +31,13 @@ model Fun {
   isActive  Boolean  @default(true)
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+}
+
+model LoginToken {
+  id String @unique @default(uuid())
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+
+  userId String
+  redirect String @default("/")
 }
